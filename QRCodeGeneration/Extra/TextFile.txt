@@ -1,0 +1,140 @@
+﻿Tables :	
+
+CREATE TABLE [dbo].[QRCode](
+	[QRId] [int] NOT NULL,
+	[QRName] [varchar](50) NULL,
+	[Static] [bit] NULL,
+	[Dynamic] [bit] NULL,
+	[CreatedBy] [varchar](50) NULL,
+	[CreatedDate] [datetime] NULL,
+	[ModifiedBy] [varchar](50) NULL,
+	[ModifiedDate] [datetime] NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[QRId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+
+CREATE TABLE [dbo].[QRCodeData](
+	[QRCodeId] [int] NOT NULL,
+	[QRId] [int] NULL,
+	[TemplateId] [int] NULL,
+	[QRCodeName] [varchar](100) NULL,
+	[QRImage] [nvarchar](max) NULL,
+	[TargetUrl] [nvarchar](max) NULL,
+	[QRFormatType] [nvarchar](max) NULL,
+	[Payload] [nvarchar](max) NULL,
+	[CreatedBy] [varchar](50) NULL,
+	[CreatedDate] [datetime] NULL,
+	[ModifiedBy] [varchar](50) NULL,
+	[ModifiedDate] [datetime] NULL,
+	[IsActive] [bit] NULL,
+	[ExpiryDate] [datetime] NULL,
+ CONSTRAINT [PK__QRCodeDa__62FECD928733A618] PRIMARY KEY CLUSTERED 
+(
+	[QRCodeId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+
+GO
+
+CREATE TABLE [dbo].[QRCodeTemplate](
+	[TemplateId] [int] NOT NULL,
+	[TemplateName] [varchar](100) NULL,
+	[Height] [decimal](18, 2) NULL,
+	[Width] [decimal](18, 2) NULL,
+	[ForeColor] [varchar](50) NULL,
+	[BackgroundColor] [varchar](50) NULL,
+	[Logo] [nvarchar](max) NULL,
+	[IsActive] [bit] NULL,
+	[IsApproved] [bit] NULL,
+	[CreatedBy] [varchar](100) NULL,
+	[CreatedDate] [datetime] NULL,
+	[ModifiedBy] [varchar](100) NULL,
+	[ModifiedDate] [datetime] NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[TemplateId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+
+GO
+
+CREATE TABLE [dbo].[QRTransactionalData](
+	[TransID] [int] NOT NULL,
+	[QRCodeId] [int] NULL,
+	[CreatedDate] [datetime] NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[TransID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+
+ALTER TABLE [dbo].[QRTransactionalData]  WITH CHECK ADD  CONSTRAINT [FK__QRTransac__QRCod__182C9B23] FOREIGN KEY([QRCodeId])
+REFERENCES [dbo].[QRCodeData] ([QRCodeId])
+GO
+
+ALTER TABLE [dbo].[QRTransactionalData] CHECK CONSTRAINT [FK__QRTransac__QRCod__182C9B23]
+GO
+
+
+
+
+ALTER PROCedure [dbo].[SP_QRCodeAdd]
+(
+	@QRCodeId INT=NULL,
+	@QRId INT=NULL,
+	@TemplateId INT =NULL,
+	@QRCodeName VARCHAR(100)=NULL,
+	@QRImage NVARCHAR(MAX)=NULL,
+	@TargetUrl VARCHAR(100)=NULL,
+	@QRFormatType VARCHAR(100)=NULL,
+	@Payload  VARCHAR(100)=NULL,
+	@CreatedBy  VARCHAR(100)=NULL,
+	@CreatedDate DATETIME=NULL,
+	@ModifiedBy VARCHAR(100)=NULL,
+	@ModifiedDate DATETIME =NULL,
+	@IsActive bit=NULL,
+	@ExpiryDate DATETIME=NULL,
+	@Type VARCHAR(50)=NULL
+)
+AS
+BEGIN
+	IF (@Type='QRCODE_ADD')
+	BEGIN
+		INSERT INTO QRCodeData(QRCodeId,QRId,TemplateId,QRCodeName,QRImage,TargetUrl,QRFormatType,Payload,CreatedBy,CreatedDate,ModifiedBy,ModifiedDate,IsActive,ExpiryDate)
+		VALUES(@QRCodeId,@QRId,@TemplateId,@QRCodeName,@QRImage,@TargetUrl,@QRFormatType,@Payload,@CreatedBy,@CreatedDate,@ModifiedBy,@ModifiedDate,@IsActive,@ExpiryDate)
+	END
+	ELSE IF (@Type='QRCODE_UPDATE')
+	BEGIN
+		UPDATE QRCodeData SET QRId=@QRId,TemplateId=@TemplateId,QRCodeName=@QRCodeName,QRImage=@QRImage,TargetUrl=@TargetUrl,QRFormatType=@QRFormatType,Payload=@Payload,CreatedBy=@CreatedBy,
+		CreatedDate=@CreatedDate,ModifiedBy=@ModifiedBy,ModifiedDate=@ModifiedDate,IsActive=@IsActive,ExpiryDate=@ExpiryDate WHERE QRCodeId=@QRCodeId
+	END
+END
+
+------------------------------------------------
+
+ALTER PROCedure [dbo].[SP_QRCode]
+(
+	@QRCodeId INT=NULL,
+	@Type VARCHAR(50)=NULL
+)
+AS
+BEGIN
+	IF (@Type='QRCODE_DATA')
+	BEGIN
+		SELECT * FROM QRCodeData WITH(NOLOCK)
+	END
+	ELSE IF (@Type='QRCODE_DATA_ByID')
+	BEGIN
+		SELECT * FROM QRCodeData WITH(NOLOCK) WHERE QRCodeId=@QRCodeId
+	END
+	ELSE IF (@Type='QRCODE_DELETE')
+	BEGIN
+		DELETE FROM QRCodeData WHERE QRCodeId=@QRCodeId
+	END
+END
