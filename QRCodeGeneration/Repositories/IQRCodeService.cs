@@ -4,10 +4,10 @@ namespace QRCodeGeneration.Repositories
 {
     public interface IQRCodeService
     {
-        public Task<List<QRDetails>> GetQRCodeData();
-        public Task<IEnumerable<QRDetails>> GetQRCodeDataById(int Id);
-        public Task<int> AddQRCode(QRDetails qRCode);
-        public Task<int> UpdateQRCode(QRDetails qRCode);
-        public Task<int> DeleteQRCode(int Id);
+        public Task<List<QrCode>> GetQRCodeList();
+        public Task<QrCode> GetQRCodeListById(int Id);
+        public Task<int> AddQRCodes(QrCode qRCode);
+        public Task<int> UpdateQRCode(QrCode qRCode);
+        public Task<int> DeleteQRCodes(int Id);
     }
 }

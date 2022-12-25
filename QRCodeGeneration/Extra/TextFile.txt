@@ -1,4 +1,122 @@
-﻿Tables :	
+﻿Table 2022-12-23 Latest Updated :
+
+CREATE TABLE [dbo].[QRCode](
+	[QRCodeId] [int] NOT NULL,
+	[QRName] [varchar](50) NULL,
+	[Static] [bit] NULL,
+	[Dynamic] [bit] NULL,
+	[CreatedBy] [varchar](50) NULL,
+	[CreatedDate] [datetime] NULL,
+	[ModifiedBy] [varchar](50) NULL,
+	[ModifiedDate] [datetime] NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[QRCodeId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+
+CREATE TABLE [dbo].[QRDetails](
+	[QRDetailId] [int] NOT NULL,
+	[QRCodeId] [int] NULL,
+	[TemplateId] [int] NULL,
+	[QRName] [varchar](100) NULL,
+	[QRImage] [varbinary](max) NULL,
+	[TargetUrl] [varchar](100) NULL,
+	[FormatType] [varchar](100) NULL,
+	[CreatedBy] [varchar](100) NULL,
+	[CreatedDate] [datetime] NULL,
+	[ModifiedBy] [varchar](50) NULL,
+	[ModifiedDate] [datetime] NULL,
+	[IsActive] [bit] NULL,
+	[ExpiryDate] [datetime] NULL,
+ CONSTRAINT [PK__QRDetail__1C89A782428CFC66] PRIMARY KEY CLUSTERED 
+(
+	[QRDetailId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+
+GO
+
+SET ANSI_PADDING OFF
+GO
+
+ALTER TABLE [dbo].[QRDetails]  WITH CHECK ADD  CONSTRAINT [FK__QRDetails__QRCod__14270015] FOREIGN KEY([QRCodeId])
+REFERENCES [dbo].[QRCode] ([QRCodeId])
+GO
+
+ALTER TABLE [dbo].[QRDetails] CHECK CONSTRAINT [FK__QRDetails__QRCod__14270015]
+GO
+
+ALTER TABLE [dbo].[QRDetails]  WITH CHECK ADD  CONSTRAINT [FK__QRDetails__Templ__151B244E] FOREIGN KEY([TemplateId])
+REFERENCES [dbo].[QRTemplate] ([TemplateId])
+GO
+
+ALTER TABLE [dbo].[QRDetails] CHECK CONSTRAINT [FK__QRDetails__Templ__151B244E]
+GO
+
+
+CREATE TABLE [dbo].[QRTemplate](
+	[TemplateId] [int] NOT NULL,
+	[TemplateName] [varchar](100) NULL,
+	[Height] [decimal](18, 2) NULL,
+	[Width] [decimal](18, 2) NULL,
+	[ForeColor] [varchar](50) NULL,
+	[BackgroundColor] [varchar](50) NULL,
+	[Logo] [varbinary](max) NULL,
+	[IsActive] [bit] NULL,
+	[IsApproved] [bit] NULL,
+	[CreatedBy] [varchar](100) NULL,
+	[CreatedDate] [datetime] NULL,
+	[ModifiedBy] [varchar](100) NULL,
+	[ModifiedDate] [datetime] NULL,
+ CONSTRAINT [PK__QRTempla__F87ADD27ECE797A1] PRIMARY KEY CLUSTERED 
+(
+	[TemplateId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+
+
+CREATE TABLE [dbo].[VCardDetails](
+	[VId] [int] NOT NULL,
+	[QRDetailId] [int] NULL,
+	[Title] [varchar](30) NULL,
+	[EmployeeCode] [varchar](20) NULL,
+	[FirstName] [varchar](100) NULL,
+	[LastName] [varchar](100) NULL,
+	[UploadImage] [varbinary](max) NULL,
+	[Designation] [varchar](100) NULL,
+	[MobileNo] [varchar](15) NULL,
+	[EmailId] [varchar](100) NULL,
+	[CompanyName] [varchar](100) NULL,
+	[Website] [varchar](100) NULL,
+	[PersonalLinks] [varchar](100) NULL,
+	[CreatedDate] [datetime] NULL,
+ CONSTRAINT [PK__VCardDet__C5DF235BD9DFBAC7] PRIMARY KEY CLUSTERED 
+(
+	[VId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+
+GO
+
+SET ANSI_PADDING OFF
+GO
+
+ALTER TABLE [dbo].[VCardDetails]  WITH CHECK ADD  CONSTRAINT [FK__VCardDeta__QRDet__17F790F9] FOREIGN KEY([QRDetailId])
+REFERENCES [dbo].[QRDetails] ([QRDetailId])
+GO
+
+ALTER TABLE [dbo].[VCardDetails] CHECK CONSTRAINT [FK__VCardDeta__QRDet__17F790F9]
+GO
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+Tables :	
 
 CREATE TABLE [dbo].[QRCode](
 	[QRId] [int] NOT NULL,

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using QRCodeGeneration.Data;
 using QRCodeGeneration.Model;
@@ -7,20 +8,20 @@ namespace QRCodeGeneration.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class VCardController : ControllerBase
+    public class URLController : ControllerBase
     {
         private readonly DbContextClass _dbContext;
-        public VCardController(DbContextClass dbContext)
+        public URLController(DbContextClass dbContext)
         {
             _dbContext = dbContext;
         }
 
-        [HttpGet("GetVCardList")]
-        public async Task<IActionResult> GetVCardList()
+        [HttpGet("GetURLQRCodeList")]
+        public async Task<IActionResult> GetURLQRCodelList()
         {
             try
             {
-                var result = await _dbContext._vCardQRCodes.ToListAsync();
+                var result = await _dbContext._uRLQRCodes.ToListAsync();
                 if (result == null)
                 {
                     return NotFound();
@@ -32,12 +33,12 @@ namespace QRCodeGeneration.Controllers
                 return BadRequest();
             }
         }
-        [HttpGet("GetVCardById")]
-        public async Task<IActionResult> GetVCardById(int Id)
+        [HttpGet("GetURLQRCodeListById")]
+        public async Task<IActionResult> GetURLQRCodeListById(int Id)
         {
             try
             {
-                var result = await _dbContext._vCardQRCodes.FirstOrDefaultAsync(m => m.VCardId == Id);
+                var result = await _dbContext._uRLQRCodes.FirstOrDefaultAsync(m => m.URLId == Id);
                 if (result == null)
                 {
                     return NotFound();
@@ -50,14 +51,14 @@ namespace QRCodeGeneration.Controllers
             }
         }
 
-        [HttpPost("AddVCard")]
-        public async Task<IActionResult> AddVCard([FromBody] VCardQRCode vCardDetails)
+        [HttpPost("AddURLQRCode")]
+        public async Task<IActionResult> AddURLQRCode([FromBody] URLQRCode uRLQRCode)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
-                    await _dbContext.AddAsync(vCardDetails);
+                    await _dbContext.AddAsync(uRLQRCode);
                     await _dbContext.SaveChangesAsync();
                     return StatusCode(StatusCodes.Status201Created);
                 }
@@ -71,14 +72,14 @@ namespace QRCodeGeneration.Controllers
                 return BadRequest();
             }
         }
-        [HttpPut("UpdateVCard")]
-        public async Task<IActionResult> UpdateVCarde([FromBody] VCardQRCode vCardDetails)
+        [HttpPut("UpdateURLQRCode")]
+        public async Task<IActionResult> UpdateURLQRCode([FromBody] URLQRCode uRLQRCode)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
-                    _dbContext._vCardQRCodes.Update(vCardDetails);
+                    _dbContext._uRLQRCodes.Update(uRLQRCode);
                     await _dbContext.SaveChangesAsync();
                     return Ok();
                 }
@@ -93,19 +94,19 @@ namespace QRCodeGeneration.Controllers
             }
         }
 
-        [HttpDelete("DeleteVCard")]
-        public async Task<IActionResult> DeleteVCard(int Id)
+        [HttpDelete("DeleteURLQRCode")]
+        public async Task<IActionResult> DeleteURLQRCode(int Id)
         {
             try
             {
-                var result = await _dbContext._vCardQRCodes.FindAsync(Id);
+                var result = await _dbContext._uRLQRCodes.FindAsync(Id);
                 if (result == null)
                 {
                     return NotFound();
                 }
                 else
                 {
-                    _dbContext._vCardQRCodes.Remove(result);
+                    _dbContext._uRLQRCodes.Remove(result);
                     await _dbContext.SaveChangesAsync();
                     return Ok();
                 }

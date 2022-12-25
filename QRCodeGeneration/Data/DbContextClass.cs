@@ -15,9 +15,12 @@ namespace QRCodeGeneration.Data
         {
             options.UseSqlServer(Configuration.GetConnectionString("CS"));
         }
-        public DbSet<QRDetails> qRDetails { get; set; }
-        public DbSet<QrCode> qrCode { get; set; }
         public DbSet<QRTemplate> _qRTemplates { get; set; }
-        public DbSet<VCardDetails> vCardDetails { get; set; }
+        public DbSet<QrCode> _qrCode { get; set; }
+        public DbSet<VCardQRCode> _vCardQRCodes { get; set; }
+        public DbSet<URLQRCode> _uRLQRCodes { get; set; }
+        public DbSet<QRDetails> _qRDetails { get; set; }
+
+
     }
 }

@@ -1,12 +1,14 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace QRCodeGeneration.Model
 {
-    public class VCardDetails
+    [Table("VCardQRCode")]
+    public class VCardQRCode
     {
         [Key]
-        public int VId { get; set; }
-        public int QRDetailId { get; set; }
+        public int VCardId { get; set; }
+        public int QRCodeId { get; set; }
         public string? Title { get; set; }
         public string? EmployeeCode { get; set; }
         public string? FirstName { get; set; }

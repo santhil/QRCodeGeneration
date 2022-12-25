@@ -21,7 +21,7 @@ namespace QRCodeGeneration.Controllers
         {
             try
             {
-                var result = await _dbContext.qRDetails.ToListAsync();
+                var result = await _dbContext._qRDetails.ToListAsync();
                 if (result == null)
                 {
                     return NotFound();
@@ -38,7 +38,7 @@ namespace QRCodeGeneration.Controllers
         {
             try
             {
-                var result = await _dbContext.qRDetails.FirstOrDefaultAsync(m => m.QRDetailId == Id);
+                var result = await _dbContext._qRDetails.FirstOrDefaultAsync(m => m.QRDetailId == Id);
                 if (result == null)
                 {
                     return NotFound();
@@ -79,7 +79,7 @@ namespace QRCodeGeneration.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    _dbContext.qRDetails.Update(qRCode);
+                    _dbContext._qRDetails.Update(qRCode);
                     await _dbContext.SaveChangesAsync();
                     return Ok();
                 }
@@ -99,14 +99,14 @@ namespace QRCodeGeneration.Controllers
         {
             try
             {
-                var result = await _dbContext.qRDetails.FindAsync(Id);
+                var result = await _dbContext._qRDetails.FindAsync(Id);
                 if (result == null)
                 {
                     return NotFound();
                 }
                 else
                 {
-                    _dbContext.qRDetails.Remove(result);
+                    _dbContext._qRDetails.Remove(result);
                     await _dbContext.SaveChangesAsync();
                     return Ok();
                 }

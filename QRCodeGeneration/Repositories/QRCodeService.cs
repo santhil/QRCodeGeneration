@@ -2,6 +2,9 @@
 using Microsoft.EntityFrameworkCore;
 using QRCodeGeneration.Data;
 using QRCodeGeneration.Model;
+using System;
+using System.Reflection.Emit;
+using static System.Runtime.CompilerServices.RuntimeHelpers;
 
 namespace QRCodeGeneration.Repositories
 {
@@ -12,23 +15,22 @@ namespace QRCodeGeneration.Repositories
         {
             _dbContext = dbContext;
         }
-        public async Task<List<QRDetails>> GetQRCodeData()
+        public async Task<List<QrCode>> GetQRCodeList()
         {
             try
             {
-                return await _dbContext.qRDetails.ToListAsync();
+                return await _dbContext._qrCode.ToListAsync();
             }
             catch (Exception)
             {
                 throw;
             }
         }
-
-        public async Task<QRDetails> GetQRCodeDataById(int QrCodeId)
+        public async Task<QrCode> GetQRCodeListById(int Id)
         {
             try
             {
-                var product = await _dbContext.qRDetails.FirstOrDefaultAsync(m => m.QRDetailId == QrCodeId);
+                var product = await _dbContext._qrCode.FirstOrDefaultAsync(m => m.QRCodeId == Id);
                 return product;
                 //if (product == null)
                 //    return NotFound();
@@ -39,11 +41,11 @@ namespace QRCodeGeneration.Repositories
                 throw;
             }
         }
-        public async Task<int> AddQRCode(QRDetails qRDetails)
+        public async Task<int> AddQRCodes(QrCode qRCode)
         {
             try
             {
-                _dbContext.Add(qRDetails);
+                await _dbContext.AddAsync(qRCode);
                 return await _dbContext.SaveChangesAsync();
             }
             catch (Exception)
@@ -51,49 +53,29 @@ namespace QRCodeGeneration.Repositories
                 throw;
             }
         }
-
-        public async Task<int> UpdateQRCode(QRDetails qRDetails)
+        public async Task<int> UpdateQRCode(QrCode qRCode)
         {
             try
             {
-                var parameter = new List<SqlParameter>();
-                parameter.Add(new SqlParameter("@QRDetailId", qRDetails.QRDetailId));
-                parameter.Add(new SqlParameter("@QRCodeId", qRDetails.QRCodeId));
-                parameter.Add(new SqlParameter("@TemplateId", qRDetails.TemplateId));
-                parameter.Add(new SqlParameter("@QRName", qRDetails.QRName));
-                parameter.Add(new SqlParameter("@QRImage", qRDetails.QRImage));
-                parameter.Add(new SqlParameter("@TargetUrl", qRDetails.TargetUrl));
-                parameter.Add(new SqlParameter("@FormatType", qRDetails.FormatType));
-                parameter.Add(new SqlParameter("@CreatedBy", qRDetails.CreatedBy));
-                parameter.Add(new SqlParameter("@CreatedDate", qRDetails.CreatedDate));
-                parameter.Add(new SqlParameter("@ModifiedBy", qRDetails.ModifiedBy));
-                parameter.Add(new SqlParameter("@ModifiedDate", qRDetails.ModifiedDate));
-                parameter.Add(new SqlParameter("@IsActive", qRDetails.IsActive));
-                parameter.Add(new SqlParameter("@ExpiryDate", qRDetails.ExpiryDate));
-                parameter.Add(new SqlParameter("@Type", "QRCODE_UPDATE"));
-
-                var result = await Task.Run(() => _dbContext.Database
-               .ExecuteSqlRawAsync(@"exec SP_QRCodeAdd @QRDetailId,@QRCodeId,@TemplateId,@QRName,@QRImage,@TargetUrl,@FormatType,@CreatedBy,@CreatedDate,@ModifiedBy,@ModifiedDate,@IsActive,@ExpiryDate,@Type", parameter.ToArray()));
-                return result;
+                _dbContext._qrCode.Update(qRCode);
+                return await _dbContext.SaveChangesAsync();
             }
             catch (Exception)
             {
                 throw;
             }
         }
-
         public async Task<int> DeleteQRCode(int id)
         {
-            try
+            var result = await _dbContext._qrCode.FirstOrDefaultAsync(e => e.QRCodeId == id);
+            if (result != null)
             {
-                var result = await _dbContext.qRDetails.FindAsync(id);
-                _dbContext.qRDetails.Remove(result);
-                await _dbContext.SaveChangesAsync();
-                return 1;
+                _dbContext._qrCode.Remove(result);
+                return await _dbContext.SaveChangesAsync();
             }
-            catch (Exception)
+            else
             {
-                throw;
+                return 0;
             }
         }
     }
