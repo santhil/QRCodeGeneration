@@ -1,4 +1,6 @@
-﻿using QRCodeGeneration.Data;
+﻿using Microsoft.Extensions.Logging;
+using QRCodeGeneration.Controllers;
+using QRCodeGeneration.Data;
 
 namespace QRCodeGeneration
 {

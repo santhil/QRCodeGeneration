@@ -1,23 +1,28 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using QRCodeGeneration.Data;
 using QRCodeGeneration.Model;
+using System.Diagnostics;
 
 namespace QRCodeGeneration.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class QRTemplateController : ControllerBase
+   
+    public class QRTemplateController : BaseController
     {
         private readonly DbContextClass _dbContext;
-        private readonly ILogger<QRTemplateController> _logger;
-        public QRTemplateController(DbContextClass dbContext, ILogger<QRTemplateController> logger)
+
+        public QRTemplateController(DbContextClass dbContext,ILogger <QRTemplateController> logger) : base(logger)
         {
             _dbContext = dbContext;
-            _logger = logger;
+           
+           
         }
 
         [HttpGet("GetQRTemplateList")]
+        [ServiceFilter(typeof(AuditAttribute))]
         public async Task<IActionResult> GetQRTemplateList()
         {
             try

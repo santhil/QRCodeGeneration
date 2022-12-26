@@ -7,10 +7,10 @@ namespace QRCodeGeneration.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class VCardController : ControllerBase
+    public class VCardController : BaseController
     {
         private readonly DbContextClass _dbContext;
-        public VCardController(DbContextClass dbContext)
+        public VCardController(DbContextClass dbContext, ILogger<VCardController> logger) : base(logger)
         {
             _dbContext = dbContext;
         }
