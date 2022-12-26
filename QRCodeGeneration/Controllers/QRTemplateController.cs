@@ -1,40 +1,31 @@
 ﻿using Dttl.Qr.Model;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
-
-
-using System.Diagnostics;
 
 namespace Dttl.Qr.Service
 {
     [Route("api/[controller]")]
     [ApiController]
-   
     public class QRTemplateController : BaseController
     {
         private readonly DbContextClass _dbContext;
 
-        public QRTemplateController(DbContextClass dbContext,ILogger <QRTemplateController> logger) : base(logger)
+        public QRTemplateController(DbContextClass dbContext, ILogger<QRTemplateController> logger) : base(logger)
         {
             _dbContext = dbContext;
-           
-           
         }
 
         [HttpGet("GetQRTemplateList")]
-     
         public async Task<IActionResult> GetQRTemplateList()
         {
-           
-                var result = await _dbContext._qRTemplates.ToListAsync();
-                if (result == null)
-                {
-                    return NotFound();
-                }
-                return Ok(result);
-            
+            var result = await _dbContext._qRTemplates.ToListAsync();
+            if (result == null)
+            {
+                return NotFound();
+            }
+            return Ok(result);
         }
+
         [HttpGet("GetQRTemplateListById")]
         public async Task<IActionResult> GetQRTemplateListById(int Id)
         {
@@ -74,6 +65,7 @@ namespace Dttl.Qr.Service
                 return BadRequest();
             }
         }
+
         [HttpPut("UpdateQRTemplate")]
         public async Task<IActionResult> UpdateQRTemplate([FromBody] QRTemplate qRTemplate)
         {

@@ -2,7 +2,6 @@
 using Dttl.Qr.Model;
 using Dttl.Qr.Util;
 
-
 VCardQRCode c = new VCardQRCode();
 c.FirstName = "Praveen";
 c.CompanyName = "Kanini";

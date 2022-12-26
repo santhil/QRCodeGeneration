@@ -1,9 +1,6 @@
 ﻿using Dttl.Qr.Model;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-
-
 
 namespace Dttl.Qr.Service
 {
@@ -12,6 +9,7 @@ namespace Dttl.Qr.Service
     public class URLController : BaseController
     {
         private readonly DbContextClass _dbContext;
+
         public URLController(DbContextClass dbContext, ILogger<URLController> logger) : base(logger)
         {
             _dbContext = dbContext;
@@ -34,6 +32,7 @@ namespace Dttl.Qr.Service
                 return BadRequest();
             }
         }
+
         [HttpGet("GetURLQRCodeListById")]
         public async Task<IActionResult> GetURLQRCodeListById(int Id)
         {
@@ -73,6 +72,7 @@ namespace Dttl.Qr.Service
                 return BadRequest();
             }
         }
+
         [HttpPut("UpdateURLQRCode")]
         public async Task<IActionResult> UpdateURLQRCode([FromBody] URLQRCode uRLQRCode)
         {

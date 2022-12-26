@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-  
 
 namespace Dttl.Qr.Service
 {
@@ -8,7 +7,6 @@ namespace Dttl.Qr.Service
     public class BaseController : ControllerBase
     {
         public readonly ILogger _logger;
-      
 
         public BaseController(ILogger logger)
         {

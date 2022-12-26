@@ -1,6 +1,5 @@
 ﻿using Dttl.Qr.Model;
 
-
 namespace Dttl.Qr.Service
 {
     public class Program
@@ -22,7 +21,6 @@ namespace Dttl.Qr.Service
             services.AddSwaggerGen();
             services.AddApplicationInsightsTelemetry();
             return builder.Build();
-
         }
 
         private static WebApplication ConfigureQRCodeGenerationApp(WebApplication app)

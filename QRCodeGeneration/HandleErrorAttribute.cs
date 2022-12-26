@@ -1,9 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
-using Microsoft.EntityFrameworkCore;
 
 using System.Net;
-using System.Web.Http;
 
 namespace Dttl.Qr.Service
 {
@@ -21,16 +19,14 @@ namespace Dttl.Qr.Service
                         $"{ex} occured in {context.ActionDescriptor.RouteValues["controller"]}\\{context.ActionDescriptor.RouteValues["action"]}"
                         );
 
-
                     context.Result = new ObjectResult(ex.Message)
                     {
                         StatusCode = (int?)HttpStatusCode.InternalServerError
-
                     };
                     context.ExceptionHandled = false;
                 }
-            } 
-            
+            }
+
             base.OnActionExecuted(context);
         }
     }

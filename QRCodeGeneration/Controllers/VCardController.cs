@@ -2,8 +2,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-
-
 namespace Dttl.Qr.Service
 {
     [Route("api/[controller]")]
@@ -11,6 +9,7 @@ namespace Dttl.Qr.Service
     public class VCardController : BaseController
     {
         private readonly DbContextClass _dbContext;
+
         public VCardController(DbContextClass dbContext, ILogger<VCardController> logger) : base(logger)
         {
             _dbContext = dbContext;
@@ -33,6 +32,7 @@ namespace Dttl.Qr.Service
                 return BadRequest();
             }
         }
+
         [HttpGet("GetVCardById")]
         public async Task<IActionResult> GetVCardById(int Id)
         {
@@ -72,6 +72,7 @@ namespace Dttl.Qr.Service
                 return BadRequest();
             }
         }
+
         [HttpPut("UpdateVCard")]
         public async Task<IActionResult> UpdateVCarde([FromBody] VCardQRCode vCardDetails)
         {

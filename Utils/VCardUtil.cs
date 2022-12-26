@@ -1,8 +1,5 @@
-﻿using static System.Net.Mime.MediaTypeNames;
-using System.Numerics;
-using System.Reflection;
+﻿using Dttl.Qr.Model;
 using System.Text;
-using Dttl.Qr.Model;
 
 namespace Dttl.Qr.Util
 {
@@ -31,11 +28,10 @@ namespace Dttl.Qr.Util
             builder.AppendLine("TEL;CELL;VOICE:" + vCardModel.MobileNo);
             builder.AppendLine("URL;" + vCardModel.PersonalLinks);
             builder.AppendLine("EMAIL;PREF;INTERNET:" + vCardModel.EmailId);
-          //  builder.AppendLine("PHOTO;ENCODING=BASE64;TYPE=JPEG:" + Convert.ToBase64String(Image));
+            //  builder.AppendLine("PHOTO;ENCODING=BASE64;TYPE=JPEG:" + Convert.ToBase64String(Image));
 
             builder.AppendLine("END:VCARD");
             return builder.ToString();
         }
-      
     }
 }
