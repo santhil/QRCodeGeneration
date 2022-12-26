@@ -1,9 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Dttl.Qr.Model;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using QRCodeGeneration.Data;
-using QRCodeGeneration.Model;
 
-namespace QRCodeGeneration.Controllers
+
+
+namespace Dttl.Qr.Service
 {
     [Route("api/[controller]")]
     [ApiController]

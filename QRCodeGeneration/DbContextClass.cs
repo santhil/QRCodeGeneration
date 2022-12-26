@@ -1,17 +1,18 @@
-﻿using Microsoft.EntityFrameworkCore;
-using QRCodeGeneration.Model;
+﻿
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using System.Collections.Generic;
 
-namespace QRCodeGeneration.Data
+namespace Dttl.Qr.Model
 {
-    public class DbContextClass : DbContext
+    public class DbContextClass : Microsoft.EntityFrameworkCore.DbContext
     {
         protected readonly IConfiguration Configuration;
         public DbContextClass(IConfiguration configuration)
         {
             Configuration = configuration;
         }
-        protected override void OnConfiguring(DbContextOptionsBuilder options)
+        protected override void OnConfiguring(Microsoft.EntityFrameworkCore.DbContextOptionsBuilder options)
         {
             options.UseSqlServer(Configuration.GetConnectionString("CS"));
         }

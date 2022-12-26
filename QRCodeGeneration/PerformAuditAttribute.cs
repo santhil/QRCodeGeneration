@@ -1,10 +1,7 @@
-﻿using Microsoft.ApplicationInsights;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Filters;
-using Microsoft.Extensions.Logging;
-using QRCodeGeneration.Controllers;
+﻿using Microsoft.AspNetCore.Mvc.Filters;
 using ActionFilterAttribute = Microsoft.AspNetCore.Mvc.Filters.ActionFilterAttribute;
 
+namespace Dttl.Qr.Service { 
 public class PerformAuditAttribute : ActionFilterAttribute
 {
 
@@ -23,4 +20,5 @@ public class PerformAuditAttribute : ActionFilterAttribute
     }
 
    
+}
 }

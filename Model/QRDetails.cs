@@ -1,8 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc.Rendering;
+﻿
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace QRCodeGeneration.Model
+namespace Dttl.Qr.Model
 {
     [Table("QRDetails")]
     public class QRDetails

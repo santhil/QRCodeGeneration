@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using QRCodeGeneration.Utils;
+  
 
-namespace QRCodeGeneration.Controllers
+namespace Dttl.Qr.Service
 {
     [PerformAudit]
     [HandleError]

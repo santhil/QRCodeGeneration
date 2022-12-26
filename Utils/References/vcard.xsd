@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           targetNamespace="http://www.ietf.org/rfc/rfc2426.txt"
+           xmlns="http://www.ietf.org/rfc/rfc2426.txt"
+           elementFormDefault="qualified"> 
+    
+    <xs:element name="vcard">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="fn" type="constrained-string" />  <!-- fn = formatted name -->
+                <xs:element name="n" minOccurs="0"> <!-- n = name -->
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="family-name" type="constrained-string" minOccurs="0" />
+                            <xs:element name="given-name" type="constrained-string" minOccurs="0" />
+                            <xs:element name="additional-name" type="constrained-string" minOccurs="0" maxOccurs="unbounded" />
+                            <xs:element name="honorific-prefix" type="constrained-string" minOccurs="0" maxOccurs="unbounded" />
+                            <xs:element name="honorific-suffix" type="constrained-string" minOccurs="0" maxOccurs="unbounded" />
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="nickname" type="constrained-string" minOccurs="0" />
+                <xs:element name="photo" type="xs:anyURI" minOccurs="0" /> <!-- URL to a photo of the person -->
+                <xs:element name="bday" type="xs:date" minOccurs="0" />  
+                <xs:element name="adr" minOccurs="0"> <!-- adr = address -->
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="post-office-box" type="constrained-string" minOccurs="0" />
+                            <xs:element name="extended-address" type="constrained-string" minOccurs="0" />  <!-- suite number, apartment number, etc -->
+                            <xs:element name="street-address" type="constrained-string" minOccurs="0" />
+                            <xs:element name="locality" type="constrained-string" minOccurs="0" />  <!-- e.g. city -->
+                            <xs:element name="region" type="constrained-string" minOccurs="0"  />  <!-- e.g. state or province -->
+                            <xs:element name="postal-code" type="constrained-string" minOccurs="0" />  <!-- e.g. zipcode -->
+                            <xs:element name="country-name" type="constrained-string" minOccurs="0" />
+                        </xs:sequence>
+                        <xs:attribute name="type" type="adr-type" />
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="label" minOccurs="0"> <!-- delivery address label -->
+                    <xs:complexType>
+                        <xs:simpleContent>
+                            <xs:extension base="constrained-string">
+                                <xs:attribute name="type" type="adr-type" />
+                            </xs:extension>
+                        </xs:simpleContent>
+                    </xs:complexType>
+                </xs:element>   
+                <xs:element name="tel" minOccurs="0" maxOccurs="unbounded"> 
+                    <xs:complexType>
+                        <xs:simpleContent>
+                            <xs:extension base="constrained-string">
+                                <xs:attribute name="type" type="tel-type" default="voice" />
+                            </xs:extension>
+                        </xs:simpleContent>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="email" minOccurs="0" maxOccurs="unbounded"> 
+                    <xs:complexType>
+                        <xs:simpleContent>
+                            <xs:extension base="constrained-string">
+                                <xs:attribute name="type" type="email-type" />
+                            </xs:extension>
+                        </xs:simpleContent>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="mailer" type="constrained-string" minOccurs="0" />  <!-- mailing software being used, e.g. MS Outlook -->
+                <xs:element name="tz" type="constrained-string" minOccurs="0" />  <!-- time zone of where the person resides -->
+                <xs:element name="geo" minOccurs="0"> <!-- global position of where the person resides -->
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="latitude" type="latitude-type" minOccurs="0" />
+                            <xs:element name="longitude" type="longitude-type" minOccurs="0" />
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="title" type="constrained-string" minOccurs="0" />  <!-- job title -->
+                <xs:element name="role" type="constrained-string" minOccurs="0" />  <!-- job role -->
+                <xs:element name="logo" type="xs:anyURI" minOccurs="0" />  <!-- URL to an image of a logo -->
+                <xs:element name="agent" type="xs:anyURI" minOccurs="0" />  <!-- URL to a person's vcard who will act on behalf of the individual, e.g. a secretary -->
+                <xs:element name="org" minOccurs="0"> <!-- the organization that the individual is associated with -->
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="organization-name" type="constrained-string" minOccurs="0" />
+                            <xs:element name="organization-unit" type="constrained-string" minOccurs="0" />
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="category" type="constrained-string" minOccurs="0" maxOccurs="unbounded" />  <!-- e.g. a travel agent may set category to travel agent -->
+                <xs:element name="note" type="constrained-string" minOccurs="0" />  <!-- any supplemental information -->
+                <xs:element name="rev" type="xs:dateTime" minOccurs="0" />  <!-- the last time the vcard was revised -->
+                <xs:element name="sort-string" type="constrained-string" minOccurs="0" />  <!-- the part of a person's name that is to be used when sorting -->
+                <xs:element name="sound" type="xs:anyURI" minOccurs="0" />  <!-- URL to an audio file -->
+                <xs:element name="uid" minOccurs="0"> <!-- unique identifier for the person -->
+                    <xs:complexType>
+                        <xs:simpleContent>
+                            <xs:extension base="constrained-string">
+                                <xs:attribute name="type" type="constrained-string" />  <!-- specify the format of the identifier, e.g. UUID, URL -->
+                            </xs:extension>
+                        </xs:simpleContent>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="url" type="xs:anyURI" minOccurs="0" />  <!-- URL associated with the person -->
+                <xs:element name="class" type="class-type" minOccurs="0" />  <!-- classification associated with this vcard -->
+                <xs:element name="key" minOccurs="0" > <!-- specify the person's public key -->
+                    <xs:complexType>
+                        <xs:simpleContent>
+                            <xs:extension base="constrained-string">
+                                <xs:attribute name="type" type="constrained-string" /> <!-- specify the format of the key -->
+                            </xs:extension>
+                        </xs:simpleContent>
+                    </xs:complexType>
+                </xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    
+    <xs:simpleType name="adr-type">
+        <xs:list>
+            <xs:simpleType>
+                <xs:restriction base="xs:string">
+                    <xs:enumeration value="intl" />  <!-- international delivery address -->
+                    <xs:enumeration value="dom" />  <!-- domestic delivery address -->
+                    <xs:enumeration value="parcel" />
+                    <xs:enumeration value="home" />
+                    <xs:enumeration value="work" />
+                    <xs:enumeration value="pref" /> <!-- preferred delivery address -->
+                    <xs:enumeration value="dom" />
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:list>
+    </xs:simpleType>
+    
+    <xs:simpleType name="class-type">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="PUBLIC" />
+            <xs:enumeration value="PRIVATE" />
+            <xs:enumeration value="CONFIDENTIAL" />
+        </xs:restriction>
+    </xs:simpleType>
+    
+    <xs:simpleType name="constrained-string">
+        <xs:restriction base="xs:string">
+            <xs:maxLength value="256" />
+        </xs:restriction>
+    </xs:simpleType>
+    
+    <xs:simpleType name="email-type">
+        <xs:list>
+            <xs:simpleType>
+                <xs:restriction base="xs:string">
+                    <xs:enumeration value="internet" />  <!-- indicates it's an internet address -->
+                    <xs:enumeration value="x400" />  <!-- indicates it's an X.400 address -->
+                    <xs:enumeration value="pref" />  <!-- indicates that this is the preferred number -->
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:list>
+    </xs:simpleType>
+    
+    <xs:simpleType name="latitude-type">
+        <xs:restriction base="xs:decimal">
+            <xs:minInclusive value="-90" />
+            <xs:maxInclusive value="90" />
+        </xs:restriction>
+    </xs:simpleType>
+    
+    <xs:simpleType name="longitude-type">
+        <xs:restriction base="xs:decimal">
+            <xs:minInclusive value="-180" />
+            <xs:maxInclusive value="180" />
+        </xs:restriction>
+    </xs:simpleType>
+    
+    <xs:simpleType name="tel-type">
+        <xs:list>
+            <xs:simpleType>
+                <xs:restriction base="xs:string">
+                    <xs:enumeration value="home" />  
+                    <xs:enumeration value="msg" />  <!-- indicates the telephone has an answering machine -->
+                    <xs:enumeration value="work" />
+                    <xs:enumeration value="pref" />  <!-- indicates that this is the preferred number -->
+                    <xs:enumeration value="voice" />  <!-- indicates that this is a voice number -->
+                    <xs:enumeration value="fax" /> 
+                    <xs:enumeration value="cell" />
+                    <xs:enumeration value="video" />  <!-- indicates that the number is for a video conferencing system -->
+                    <xs:enumeration value="pager" />
+                    <xs:enumeration value="bbs" />  <!-- indicates that the number is for a bulletin board system -->
+                    <xs:enumeration value="modem" />
+                    <xs:enumeration value="isdn" />
+                    <xs:enumeration value="pcs" />  <!-- personal communication services number -->
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:list>
+    </xs:simpleType>
+    
+</xs:schema>

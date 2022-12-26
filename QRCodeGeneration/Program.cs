@@ -1,6 +1,5 @@
-﻿using Microsoft.Extensions.Logging;
-using QRCodeGeneration.Controllers;
-using QRCodeGeneration.Data;
+﻿using Dttl.Qr.Model;
+
 
 namespace QRCodeGeneration
 {
@@ -23,7 +22,7 @@ namespace QRCodeGeneration
             services.AddSwaggerGen();
             services.AddApplicationInsightsTelemetry();
             return builder.Build();
-               
+
         }
 
         private static WebApplication ConfigureQRCodeGenerationApp(WebApplication app)

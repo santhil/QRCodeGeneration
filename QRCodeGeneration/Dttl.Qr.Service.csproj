@@ -8,11 +8,6 @@
 
   <ItemGroup>
     <Compile Remove="Controllers\ProductsController.cs" />
-    <Compile Remove="Model\Product.cs" />
-    <Compile Remove="Repositories\IProductService.cs" />
-    <Compile Remove="Repositories\IQRCodeService.cs" />
-    <Compile Remove="Repositories\ProductService.cs" />
-    <Compile Remove="Repositories\QRCodeService.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -24,7 +19,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Repositories\" />
+    <Folder Include="References\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Model\Dttl.Qr.Model.csproj" />
+    <ProjectReference Include="..\Utils\Dttl.Qr.Util.csproj" />
   </ItemGroup>
 
 </Project>

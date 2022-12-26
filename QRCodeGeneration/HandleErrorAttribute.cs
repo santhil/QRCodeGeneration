@@ -1,11 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.EntityFrameworkCore;
-using QRCodeGeneration.Controllers;
+
 using System.Net;
 using System.Web.Http;
 
-namespace QRCodeGeneration.Utils
+namespace Dttl.Qr.Service
 {
     public class HandleErrorAttribute : ActionFilterAttribute
     {
