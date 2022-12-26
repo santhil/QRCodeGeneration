@@ -11,10 +11,4 @@
     <ProjectReference Include="..\Model\Dttl.Qr.Model.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <None Update="References\vcard.xsd">
-      <SubType>Designer</SubType>
-    </None>
-  </ItemGroup>
-
 </Project>

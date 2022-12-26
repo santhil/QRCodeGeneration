@@ -6,22 +6,36 @@ using Dttl.Qr.Model;
 
 namespace Dttl.Qr.Util
 {
-    public class VCardUtil
+    public static class VCardUtil
     {
-        public string GetVcardXml(VCardQRCode vCardQRCode)
+        public static string GetVCard(VCardQRCode vCardModel)
         {
-            return XmlUtil.SerializeObject(vCardQRCode);
-        }
-        public  vcard GetVCard(VCardQRCode vCardQRCode)
-        {
-           vcard _vcard = new vcard();
-            _vcard.fn = vCardQRCode.FirstName;
-            _vcard.org = new vcardOrg() { organizationname = vCardQRCode.CompanyName };
-          
-            
+            var builder = new StringBuilder();
+            builder.AppendLine("BEGIN:VCARD");
+            builder.AppendLine("VERSION:2.1");
+            // Name
+            builder.AppendLine("N:" + vCardModel.LastName + ";" + vCardModel.FirstName);
+            // Full name
+            builder.AppendLine("FN:" + vCardModel.FirstName);
+            // Address
+            /*
+            builder.Append("ADR;HOME;PREF:;;");
+            builder.Append(StreetAddress + ";");
+            builder.Append(City + ";;");
+            builder.Append(Zip + ";");
+            builder.AppendLine(CountryName);*/
+            // Other data
+            builder.AppendLine("ORG:" + vCardModel.CompanyName);
+            builder.AppendLine("TITLE:" + vCardModel.Designation);
+            builder.AppendLine("TEL;HOME;VOICE:" + vCardModel.MobileNo);
+            builder.AppendLine("TEL;CELL;VOICE:" + vCardModel.MobileNo);
+            builder.AppendLine("URL;" + vCardModel.PersonalLinks);
+            builder.AppendLine("EMAIL;PREF;INTERNET:" + vCardModel.EmailId);
+          //  builder.AppendLine("PHOTO;ENCODING=BASE64;TYPE=JPEG:" + Convert.ToBase64String(Image));
 
-            return _vcard;
-
+            builder.AppendLine("END:VCARD");
+            return builder.ToString();
         }
+      
     }
 }

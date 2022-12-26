@@ -1,2 +1,10 @@
 ﻿// See https://aka.ms/new-console-template for more information
-Console.WriteLine("Hello, World!");
+using Dttl.Qr.Model;
+using Dttl.Qr.Util;
+
+
+VCardQRCode c = new VCardQRCode();
+c.FirstName = "Senthil";
+c.CompanyName = "Kanini";
+
+Console.WriteLine(VCardUtil.GetVCard(c));
