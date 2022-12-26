@@ -10,9 +10,11 @@ namespace QRCodeGeneration.Controllers
     public class QRTemplateController : ControllerBase
     {
         private readonly DbContextClass _dbContext;
-        public QRTemplateController(DbContextClass dbContext)
+        private readonly ILogger<QRTemplateController> _logger;
+        public QRTemplateController(DbContextClass dbContext, ILogger<QRTemplateController> logger)
         {
             _dbContext = dbContext;
+            _logger = logger;
         }
 
         [HttpGet("GetQRTemplateList")]
