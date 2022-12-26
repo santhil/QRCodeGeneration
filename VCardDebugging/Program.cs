@@ -4,7 +4,7 @@ using Dttl.Qr.Util;
 
 
 VCardQRCode c = new VCardQRCode();
-c.FirstName = "Senthil";
+c.FirstName = "Praveen";
 c.CompanyName = "Kanini";
 
 Console.WriteLine(VCardUtil.GetVCard(c));
