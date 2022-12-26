@@ -1,7 +1,7 @@
 ﻿using Dttl.Qr.Model;
 
 
-namespace QRCodeGeneration
+namespace Dttl.Qr.Service
 {
     public class Program
     {
