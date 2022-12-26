@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using QRCodeGeneration.Utils;
 
 namespace QRCodeGeneration.Controllers
 {
-    [Audit]
+    [PerformAudit]
+    [HandleError]
     public class BaseController : ControllerBase
     {
         public readonly ILogger _logger;

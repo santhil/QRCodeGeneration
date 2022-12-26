@@ -5,7 +5,7 @@ using Microsoft.Extensions.Logging;
 using QRCodeGeneration.Controllers;
 using ActionFilterAttribute = Microsoft.AspNetCore.Mvc.Filters.ActionFilterAttribute;
 
-public class AuditAttribute : ActionFilterAttribute
+public class PerformAuditAttribute : ActionFilterAttribute
 {
 
     

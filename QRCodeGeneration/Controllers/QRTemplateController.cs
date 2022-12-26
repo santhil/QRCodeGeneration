@@ -22,22 +22,17 @@ namespace QRCodeGeneration.Controllers
         }
 
         [HttpGet("GetQRTemplateList")]
-        [ServiceFilter(typeof(AuditAttribute))]
+     
         public async Task<IActionResult> GetQRTemplateList()
         {
-            try
-            {
+           
                 var result = await _dbContext._qRTemplates.ToListAsync();
                 if (result == null)
                 {
                     return NotFound();
                 }
                 return Ok(result);
-            }
-            catch (Exception)
-            {
-                return BadRequest();
-            }
+            
         }
         [HttpGet("GetQRTemplateListById")]
         public async Task<IActionResult> GetQRTemplateListById(int Id)
