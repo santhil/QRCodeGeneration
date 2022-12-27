@@ -24,6 +24,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Dttl.Qr.Data\Dttl.Qr.Data.csproj" />
+    <ProjectReference Include="..\Dttl.Qr.Model\Dttl.Qr.Model.csproj" />
     <ProjectReference Include="..\Model\Dttl.Qr.Model.csproj" />
     <ProjectReference Include="..\Utils\Dttl.Qr.Util.csproj" />
   </ItemGroup>

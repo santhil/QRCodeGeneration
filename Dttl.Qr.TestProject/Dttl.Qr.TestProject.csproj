@@ -8,7 +8,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Utils\Dttl.Qr.Util.csproj" />
+    <ProjectReference Include="..\Dttl.Qr.Model\Dttl.Qr.Model.csproj" />
+    <ProjectReference Include="..\Dttl.Qr.Util\Dttl.Qr.Util.csproj" />
   </ItemGroup>
 
   <ItemGroup>
