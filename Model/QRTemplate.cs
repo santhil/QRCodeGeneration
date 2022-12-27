@@ -8,7 +8,6 @@ namespace Dttl.Qr.Model
     {
         [Key]
         public int TemplateId { get; set; }
-
         public string? TemplateName { get; set; }
         public decimal? Height { get; set; }
         public decimal? Width { get; set; }

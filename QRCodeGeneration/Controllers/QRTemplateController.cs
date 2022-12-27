@@ -1,4 +1,5 @@
-﻿using Dttl.Qr.Model;
+﻿using Dttl.Qr.Data;
+using Dttl.Qr.Model;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -9,12 +10,10 @@ namespace Dttl.Qr.Service
     public class QRTemplateController : BaseController
     {
         private readonly DbContextClass _dbContext;
-
         public QRTemplateController(DbContextClass dbContext, ILogger<QRTemplateController> logger) : base(logger)
         {
             _dbContext = dbContext;
         }
-
         [HttpGet("GetQRTemplateList")]
         public async Task<IActionResult> GetQRTemplateList()
         {
@@ -23,44 +22,30 @@ namespace Dttl.Qr.Service
             {
                 return NotFound();
             }
-            return Ok(result);
+            return StatusCode(StatusCodes.Status200OK, result);
         }
 
         [HttpGet("GetQRTemplateListById")]
         public async Task<IActionResult> GetQRTemplateListById(int Id)
         {
-            try
+            var result = await _dbContext._qRTemplates.FirstOrDefaultAsync(m => m.TemplateId == Id);
+            if (result == null)
             {
-                var result = await _dbContext._qRTemplates.FirstOrDefaultAsync(m => m.TemplateId == Id);
-                if (result == null)
-                {
-                    return NotFound();
-                }
-                return Ok(result);
+                return NotFound();
             }
-            catch (Exception)
-            {
-                return BadRequest();
-            }
+            return StatusCode(StatusCodes.Status200OK, result);
         }
 
         [HttpPost("AddQRTemplate")]
         public async Task<IActionResult> AddQRTemplate([FromBody] QRTemplate qRTemplate)
         {
-            try
+            if (ModelState.IsValid)
             {
-                if (ModelState.IsValid)
-                {
-                    await _dbContext.AddAsync(qRTemplate);
-                    await _dbContext.SaveChangesAsync();
-                    return StatusCode(StatusCodes.Status201Created);
-                }
-                else
-                {
-                    return BadRequest();
-                }
+                await _dbContext.AddAsync(qRTemplate);
+                await _dbContext.SaveChangesAsync();
+                return StatusCode(StatusCodes.Status201Created, qRTemplate);
             }
-            catch (Exception)
+            else
             {
                 return BadRequest();
             }
@@ -69,20 +54,13 @@ namespace Dttl.Qr.Service
         [HttpPut("UpdateQRTemplate")]
         public async Task<IActionResult> UpdateQRTemplate([FromBody] QRTemplate qRTemplate)
         {
-            try
+            if (ModelState.IsValid)
             {
-                if (ModelState.IsValid)
-                {
-                    _dbContext._qRTemplates.Update(qRTemplate);
-                    await _dbContext.SaveChangesAsync();
-                    return Ok();
-                }
-                else
-                {
-                    return BadRequest();
-                }
+                _dbContext._qRTemplates.Update(qRTemplate);
+                await _dbContext.SaveChangesAsync();
+                return StatusCode(StatusCodes.Status200OK, qRTemplate);
             }
-            catch (Exception)
+            else
             {
                 return BadRequest();
             }
@@ -91,23 +69,16 @@ namespace Dttl.Qr.Service
         [HttpDelete("DeleteQRTemplate")]
         public async Task<IActionResult> DeleteQRTemplate(int Id)
         {
-            try
+            var result = await _dbContext._qRTemplates.FindAsync(Id);
+            if (result == null)
             {
-                var result = await _dbContext._qRTemplates.FindAsync(Id);
-                if (result == null)
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    _dbContext._qRTemplates.Remove(result);
-                    await _dbContext.SaveChangesAsync();
-                    return Ok();
-                }
+                return NotFound();
             }
-            catch (Exception)
+            else
             {
-                return BadRequest();
+                _dbContext._qRTemplates.Remove(result);
+                await _dbContext.SaveChangesAsync();
+                return StatusCode(StatusCodes.Status200OK, result);
             }
         }
     }

@@ -21,6 +21,6 @@ namespace Dttl.Qr.Model
         public DateTime? CreatedDate { get; set; }
         public string? ModifiedBy { get; set; }
         public DateTime? ModifiedDate { get; set; }
-        public DateTime? ExpiryDate { get; }
+        public DateTime? ExpiryDate { get; set; }
     }
 }

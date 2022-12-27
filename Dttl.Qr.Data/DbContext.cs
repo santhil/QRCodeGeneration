@@ -1,6 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Dttl.Qr.Model;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 
-namespace Dttl.Qr.Model
+namespace Dttl.Qr.Data
 {
     public class DbContextClass : Microsoft.EntityFrameworkCore.DbContext
     {
