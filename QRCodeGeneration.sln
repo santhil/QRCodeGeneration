@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33122.133
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dttl.Qr.Service", "QRCodeGeneration\Dttl.Qr.Service.csproj", "{D1DEE9E7-473E-4C90-8CD9-A7359DAECC90}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dttl.Qr.Service", "Dttl.Qr.Service\Dttl.Qr.Service.csproj", "{D1DEE9E7-473E-4C90-8CD9-A7359DAECC90}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dttl.Qr.TestProject", "VCardDebugging\Dttl.Qr.TestProject.csproj", "{BEAA2D4C-3699-4F5E-B80D-18874FE21A6F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dttl.Qr.TestProject", "Dttl.Qr.TestProject\Dttl.Qr.TestProject.csproj", "{BEAA2D4C-3699-4F5E-B80D-18874FE21A6F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dttl.Qr.Util", "Utils\Dttl.Qr.Util.csproj", "{D99655CB-FD12-497B-A0F5-F6ED0E31D5DB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dttl.Qr.Util", "Dttl.Qr.Util\Dttl.Qr.Util.csproj", "{D99655CB-FD12-497B-A0F5-F6ED0E31D5DB}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dttl.Qr.Model", "Model\Dttl.Qr.Model.csproj", "{50E5DD5D-F9E7-4BA8-9988-A394A24BC247}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dttl.Qr.Model", "Dttl.Qr.Model\Dttl.Qr.Model.csproj", "{50E5DD5D-F9E7-4BA8-9988-A394A24BC247}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dttl.Qr.Data", "Dttl.Qr.Data\Dttl.Qr.Data.csproj", "{5A88ABA4-E1C6-44A3-9378-C66044D77160}"
 EndProject

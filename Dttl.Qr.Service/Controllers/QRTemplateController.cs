@@ -7,18 +7,19 @@ namespace Dttl.Qr.Service
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class QRDetailController : BaseController
+    public class QRTemplateController : BaseController
     {
         private readonly DbContextClass _dbContext;
-        public QRDetailController(DbContextClass dbContext, ILogger<QRDetailController> logger) : base(logger)
+
+        public QRTemplateController(DbContextClass dbContext, ILogger<QRTemplateController> logger) : base(logger)
         {
             _dbContext = dbContext;
         }
 
-        [HttpGet("GetQRDetailList")]
-        public async Task<IActionResult> GetQRDetailList()
+        [HttpGet("GetQRTemplateList")]
+        public async Task<IActionResult> GetQRTemplateList()
         {
-            var result = await _dbContext._qRDetails.ToListAsync();
+            var result = await _dbContext._qRTemplates.ToListAsync();
             if (result == null)
             {
                 return NotFound();
@@ -26,24 +27,25 @@ namespace Dttl.Qr.Service
             return StatusCode(StatusCodes.Status200OK, result);
         }
 
-        [HttpGet("GetQRDetailListById")]
-        public async Task<IActionResult> GetQRDetailListById(int Id)
+        [HttpGet("GetQRTemplateListById")]
+        public async Task<IActionResult> GetQRTemplateListById(int Id)
         {
-            var result = await _dbContext._qRDetails.FirstOrDefaultAsync(m => m.QRDetailId == Id);
+            var result = await _dbContext._qRTemplates.FirstOrDefaultAsync(m => m.TemplateId == Id);
             if (result == null)
             {
                 return NotFound();
             }
             return StatusCode(StatusCodes.Status200OK, result);
         }
-        [HttpPost("AddQRDetails")]
-        public async Task<IActionResult> AddQRDetails([FromBody] QRDetails qRDetails)
+
+        [HttpPost("AddQRTemplate")]
+        public async Task<IActionResult> AddQRTemplate([FromBody] QRTemplate qRTemplate)
         {
             if (ModelState.IsValid)
             {
-                await _dbContext.AddAsync(qRDetails);
+                await _dbContext.AddAsync(qRTemplate);
                 await _dbContext.SaveChangesAsync();
-                return StatusCode(StatusCodes.Status201Created, qRDetails);
+                return StatusCode(StatusCodes.Status201Created, qRTemplate);
             }
             else
             {
@@ -51,31 +53,32 @@ namespace Dttl.Qr.Service
             }
         }
 
-        [HttpPut("UpdateQReDetails")]
-        public async Task<IActionResult> UpdateQReDetails([FromBody] QRDetails qRDetails)
+        [HttpPut("UpdateQRTemplate")]
+        public async Task<IActionResult> UpdateQRTemplate([FromBody] QRTemplate qRTemplate)
         {
             if (ModelState.IsValid)
             {
-                _dbContext._qRDetails.Update(qRDetails);
+                _dbContext._qRTemplates.Update(qRTemplate);
                 await _dbContext.SaveChangesAsync();
-                return StatusCode(StatusCodes.Status200OK, qRDetails);
+                return StatusCode(StatusCodes.Status200OK, qRTemplate);
             }
             else
             {
                 return BadRequest();
             }
         }
-        [HttpDelete("DeleteQRDetails")]
-        public async Task<IActionResult> DeleteQRDetails(int Id)
+
+        [HttpDelete("DeleteQRTemplate")]
+        public async Task<IActionResult> DeleteQRTemplate(int Id)
         {
-            var result = await _dbContext._qRDetails.FindAsync(Id);
+            var result = await _dbContext._qRTemplates.FindAsync(Id);
             if (result == null)
             {
                 return NotFound();
             }
             else
             {
-                _dbContext._qRDetails.Remove(result);
+                _dbContext._qRTemplates.Remove(result);
                 await _dbContext.SaveChangesAsync();
                 return StatusCode(StatusCodes.Status200OK, result);
             }

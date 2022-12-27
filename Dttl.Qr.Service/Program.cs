@@ -11,6 +11,7 @@ namespace Dttl.Qr.Service
             var application = ConfigureQRCodeGenerationApp(buildedApp);
             application.Run();
         }
+
         public static WebApplication BuildQRCodeGenerationApp(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
@@ -23,6 +24,7 @@ namespace Dttl.Qr.Service
             services.AddApplicationInsightsTelemetry();
             return builder.Build();
         }
+
         private static WebApplication ConfigureQRCodeGenerationApp(WebApplication app)
         {
             if (app.Environment.IsDevelopment())

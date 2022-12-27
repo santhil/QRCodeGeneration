@@ -10,6 +10,7 @@ namespace Dttl.Qr.Service
     public class URLController : BaseController
     {
         private readonly DbContextClass _dbContext;
+
         public URLController(DbContextClass dbContext, ILogger<URLController> logger) : base(logger)
         {
             _dbContext = dbContext;
@@ -36,6 +37,7 @@ namespace Dttl.Qr.Service
             }
             return StatusCode(StatusCodes.Status200OK, result);
         }
+
         [HttpPost("AddURLQRCode")]
         public async Task<IActionResult> AddURLQRCode([FromBody] URLQRCode uRLQRCode)
         {

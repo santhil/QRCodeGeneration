@@ -65,6 +65,7 @@ namespace Dttl.Qr.Service
                 return BadRequest();
             }
         }
+
         [HttpDelete("DeleteQRCodes")]
         public async Task<IActionResult> DeleteQRCodes(int Id)
         {
