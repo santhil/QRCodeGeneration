@@ -1,8 +1,6 @@
-﻿using Dttl.Qr.Data;
-using Dttl.Qr.Model;
+﻿using Dttl.Qr.Model;
 using Dttl.Qr.Repository;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace Dttl.Qr.Service
 {
@@ -11,6 +9,7 @@ namespace Dttl.Qr.Service
     public class QRCodeController : BaseController
     {
         private readonly IQRCodeService _qRCodeService;
+
         public QRCodeController(IQRCodeService qRCodeService, ILogger<QRCodeController> logger) : base(logger)
         {
             _qRCodeService = qRCodeService;

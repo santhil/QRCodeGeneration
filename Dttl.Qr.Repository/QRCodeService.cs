@@ -1,22 +1,18 @@
 ﻿using Dttl.Qr.Data;
 using Dttl.Qr.Model;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Dttl.Qr.Repository
 {
     public class QRCodeService : IQRCodeService
     {
         private readonly DbContextClass _dbContext;
+
         public QRCodeService(DbContextClass dbContext)
         {
             _dbContext = dbContext;
         }
+
         public async Task<List<QrCode>> GetQRCodeList()
         {
             return await _dbContext._qrCode.ToListAsync();
@@ -26,6 +22,7 @@ namespace Dttl.Qr.Repository
         {
             return await _dbContext._qrCode.FirstOrDefaultAsync(m => m.QRCodeId == Id);
         }
+
         public async Task<QrCode> AddQRCodes(QrCode qRCode)
         {
             var result = await _dbContext.AddAsync(qRCode);
@@ -39,6 +36,7 @@ namespace Dttl.Qr.Repository
             await _dbContext.SaveChangesAsync();
             return result.Entity;
         }
+
         public async Task<QrCode> DeleteQRCodes(int Id)
         {
             var result = await _dbContext._qrCode.FindAsync(Id);
