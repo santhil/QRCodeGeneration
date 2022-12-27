@@ -6,13 +6,11 @@ namespace Dttl.Qr.Util
     {
         public static string SerializeObject<T>(this T toSerialize)
         {
-            XmlSerializer xmlSerializer = new XmlSerializer(toSerialize!.GetType());
+            XmlSerializer xmlSerializer = new(toSerialize!.GetType());
 
-            using (StringWriter textWriter = new StringWriter())
-            {
-                xmlSerializer.Serialize(textWriter, toSerialize);
-                return textWriter.ToString();
-            }
+            using StringWriter textWriter = new();
+            xmlSerializer.Serialize(textWriter, toSerialize);
+            return textWriter.ToString();
         }
     }
 }

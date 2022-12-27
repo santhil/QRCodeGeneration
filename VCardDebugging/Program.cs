@@ -14,4 +14,5 @@ c.EmailId = "Test@kanini.com";
 c.Website = "kanini.com";
 c.PersonalLinks = "www.google.com";
 c.UploadImage = await System.IO.File.ReadAllBytesAsync(fileName);
+
 File.WriteAllText("Vcard.vcf", VCardUtil.GetVCard(c));
