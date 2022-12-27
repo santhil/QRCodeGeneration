@@ -10,10 +10,12 @@ namespace Dttl.Qr.Service
     public class VCardController : BaseController
     {
         private readonly DbContextClass _dbContext;
+
         public VCardController(DbContextClass dbContext, ILogger<VCardController> logger) : base(logger)
         {
             _dbContext = dbContext;
         }
+
         [HttpGet("GetVCardList")]
         public async Task<IActionResult> GetVCardList()
         {

@@ -10,6 +10,7 @@ namespace Dttl.Qr.Service
     public class QRCodeController : BaseController
     {
         private readonly DbContextClass _dbContext;
+
         public QRCodeController(DbContextClass dbContext, ILogger<QRCodeController> logger) : base(logger)
         {
             _dbContext = dbContext;
@@ -66,6 +67,7 @@ namespace Dttl.Qr.Service
                 return BadRequest();
             }
         }
+
         [HttpDelete("DeleteQRCodes")]
         public async Task<IActionResult> DeleteQRCodes(int Id)
         {

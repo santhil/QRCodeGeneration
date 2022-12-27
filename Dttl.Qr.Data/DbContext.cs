@@ -12,6 +12,7 @@ namespace Dttl.Qr.Data
         {
             Configuration = configuration;
         }
+
         protected override void OnConfiguring(Microsoft.EntityFrameworkCore.DbContextOptionsBuilder options)
         {
             options.UseSqlServer(Configuration.GetConnectionString("CS"));

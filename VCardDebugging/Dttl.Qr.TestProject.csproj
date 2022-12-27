@@ -11,4 +11,10 @@
     <ProjectReference Include="..\Utils\Dttl.Qr.Util.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="ProfilePhoto.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

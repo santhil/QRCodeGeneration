@@ -1,9 +1,8 @@
 ﻿// See https://aka.ms/new-console-template for more information
 using Dttl.Qr.Model;
 using Dttl.Qr.Util;
-using System.Net.Security;
 
-string fileName = @"C:\Users\Lenovo India\Desktop\Test.jpg";
+string fileName = "ProfilePhoto.jpg";
 
 VCardQRCode c = new VCardQRCode();
 c.FirstName = "Praveen";
@@ -15,4 +14,4 @@ c.EmailId = "Test@kanini.com";
 c.Website = "kanini.com";
 c.PersonalLinks = "www.google.com";
 c.UploadImage = await System.IO.File.ReadAllBytesAsync(fileName);
-Console.WriteLine(VCardUtil.GetVCard(c));
+File.WriteAllText("Vcard.vcf", VCardUtil.GetVCard(c));

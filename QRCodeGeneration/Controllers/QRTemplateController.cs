@@ -10,10 +10,12 @@ namespace Dttl.Qr.Service
     public class QRTemplateController : BaseController
     {
         private readonly DbContextClass _dbContext;
+
         public QRTemplateController(DbContextClass dbContext, ILogger<QRTemplateController> logger) : base(logger)
         {
             _dbContext = dbContext;
         }
+
         [HttpGet("GetQRTemplateList")]
         public async Task<IActionResult> GetQRTemplateList()
         {

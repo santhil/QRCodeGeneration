@@ -1,6 +1,5 @@
 ﻿using Dttl.Qr.Data;
 using Dttl.Qr.Model;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Dttl.Qr.Service.Controllers
@@ -10,10 +9,12 @@ namespace Dttl.Qr.Service.Controllers
     public class SearchController : ControllerBase
     {
         private readonly DbContextClass _dbContext;
+
         public SearchController(DbContextClass dbContext)
         {
             _dbContext = dbContext;
         }
+
         [HttpGet("GetSearchByFilter")]
         public async Task<IActionResult> GetSearchByFilter([FromBody] SearchFilter searchFilter)
         {

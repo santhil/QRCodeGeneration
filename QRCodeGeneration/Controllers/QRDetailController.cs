@@ -10,6 +10,7 @@ namespace Dttl.Qr.Service
     public class QRDetailController : BaseController
     {
         private readonly DbContextClass _dbContext;
+
         public QRDetailController(DbContextClass dbContext, ILogger<QRDetailController> logger) : base(logger)
         {
             _dbContext = dbContext;
@@ -36,6 +37,7 @@ namespace Dttl.Qr.Service
             }
             return StatusCode(StatusCodes.Status200OK, result);
         }
+
         [HttpPost("AddQRDetails")]
         public async Task<IActionResult> AddQRDetails([FromBody] QRDetails qRDetails)
         {
@@ -65,6 +67,7 @@ namespace Dttl.Qr.Service
                 return BadRequest();
             }
         }
+
         [HttpDelete("DeleteQRDetails")]
         public async Task<IActionResult> DeleteQRDetails(int Id)
         {
