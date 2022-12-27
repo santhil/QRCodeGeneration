@@ -1,4 +1,5 @@
 ﻿using Dttl.Qr.Data;
+using Dttl.Qr.Repository;
 
 namespace Dttl.Qr.Service
 {
@@ -15,6 +16,7 @@ namespace Dttl.Qr.Service
             var builder = WebApplication.CreateBuilder(args);
             var services = builder.Services;
             services.AddDbContext<DbContextClass>();
+            services.AddScoped<IQRCodeService, QRCodeService>();
             services.AddControllers();
             services.AddEndpointsApiExplorer();
             services.AddSwaggerGen();

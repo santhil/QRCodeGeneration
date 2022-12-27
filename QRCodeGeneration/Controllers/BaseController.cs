@@ -7,7 +7,6 @@ namespace Dttl.Qr.Service
     public class BaseController : ControllerBase
     {
         public readonly ILogger _logger;
-
         public BaseController(ILogger logger)
         {
             _logger = logger;

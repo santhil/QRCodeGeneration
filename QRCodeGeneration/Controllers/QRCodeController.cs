@@ -1,5 +1,6 @@
 ﻿using Dttl.Qr.Data;
 using Dttl.Qr.Model;
+using Dttl.Qr.Repository;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -9,16 +10,16 @@ namespace Dttl.Qr.Service
     [ApiController]
     public class QRCodeController : BaseController
     {
-        private readonly DbContextClass _dbContext;
-        public QRCodeController(DbContextClass dbContext, ILogger<QRCodeController> logger) : base(logger)
+        private readonly IQRCodeService _qRCodeService;
+        public QRCodeController(IQRCodeService qRCodeService, ILogger<QRCodeController> logger) : base(logger)
         {
-            _dbContext = dbContext;
+            _qRCodeService = qRCodeService;
         }
 
         [HttpGet("GetQRCodeList")]
         public async Task<IActionResult> GetQRCodeList()
         {
-            var result = await _dbContext._qrCode.ToListAsync();
+            var result = await _qRCodeService.GetQRCodeList();
             if (result == null)
             {
                 return NotFound();
@@ -29,7 +30,7 @@ namespace Dttl.Qr.Service
         [HttpGet("GetQRCodeListById")]
         public async Task<IActionResult> GetQRCodeListById(int Id)
         {
-            var result = await _dbContext._qrCode.FirstOrDefaultAsync(m => m.QRCodeId == Id);
+            var result = await _qRCodeService.GetQRCodeListById(Id);
             if (result == null)
             {
                 return NotFound();
@@ -42,9 +43,8 @@ namespace Dttl.Qr.Service
         {
             if (ModelState.IsValid)
             {
-                await _dbContext.AddAsync(qrCode);
-                await _dbContext.SaveChangesAsync();
-                return StatusCode(StatusCodes.Status201Created, qrCode);
+                var result = await _qRCodeService.AddQRCodes(qrCode);
+                return StatusCode(StatusCodes.Status201Created, result);
             }
             else
             {
@@ -57,8 +57,7 @@ namespace Dttl.Qr.Service
         {
             if (ModelState.IsValid)
             {
-                _dbContext._qrCode.Update(qRCode);
-                await _dbContext.SaveChangesAsync();
+                var result = await _qRCodeService.UpdateQRCode(qRCode);
                 return StatusCode(StatusCodes.Status200OK, qRCode);
             }
             else
@@ -69,15 +68,13 @@ namespace Dttl.Qr.Service
         [HttpDelete("DeleteQRCodes")]
         public async Task<IActionResult> DeleteQRCodes(int Id)
         {
-            var result = await _dbContext._qrCode.FindAsync(Id);
+            var result = await _qRCodeService.DeleteQRCodes(Id);
             if (result == null)
             {
                 return NotFound();
             }
             else
             {
-                _dbContext._qrCode.Remove(result);
-                await _dbContext.SaveChangesAsync();
                 return StatusCode(StatusCodes.Status200OK, result);
             }
         }
